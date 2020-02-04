@@ -12,5 +12,5 @@ Create a HTML Input field. Create a JavaScript which reads the data from the inp
 ## Task 4
 Make task 3 show the input data in an alert box
 
-##Task 5
+## Task 5
 Make task 3 show the input data in console.log
