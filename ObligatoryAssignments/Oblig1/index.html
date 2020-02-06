@@ -11,23 +11,23 @@
     <title>Oblig 1 - Fredrik Pedersen</title>
 </head>
 
-<body>
+<body onload="init()">
 
 <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="#">
         Ticket Purchase
     </a>
+  <button class="btn btn-danger" onclick="clearLocalStorage()">Clear Data</button>
 </nav>
 
 <div id="content">
-    <form class="needs-validation" novalidate>
+    <form onsubmit="addTicket()" class="needs-validation" novalidate>
         <div class="form-group row">
             <div class="col-md-1">
                 <label for="movieSelector">Movie</label>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <select class="form-control" id="movieSelector" required>
-                    <option value="Movie">Movie</option>
                 </select>
             </div>
         </div>
@@ -46,10 +46,10 @@
 
         <div class="form-group row">
             <div class="col-md-1">
-                <label for="firstnameInput">Firstname</label>
+                <label for="firstNameInput">Firstname</label>
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" id="firstnameInput" placeholder="Firstname" required>
+                <input type="text" class="form-control" id="firstNameInput" placeholder="Firstname" required>
                 <div class="invalid-feedback">
                     Please Provide Your Name!
                 </div>
@@ -58,10 +58,10 @@
 
         <div class="form-group row">
             <div class="col-md-1">
-                <label for="lastnameInput">Lastname</label>
+                <label for="lastNameInput">Lastname</label>
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control" id="lastnameInput" placeholder="Lastname" required>
+                <input type="text" class="form-control" id="lastNameInput" placeholder="Lastname" required>
                 <div class="invalid-feedback">
                     Please Provide Your Lastname!
                 </div>
@@ -93,7 +93,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success" id="buy-button">Buy Ticket</button>
+        <input type="submit" class="btn btn-success" id="buy-button" value="Buy Ticket"/>
     </form>
 
     <div id="table-header">
