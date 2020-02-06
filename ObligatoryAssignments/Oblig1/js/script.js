@@ -6,6 +6,7 @@ const init = () => {
     createSampleTickets();
     fillMovieSelector();
 };
+
 const createSampleTickets = () => {
     if (localStorage.getItem("ticketsArray") === null) {
         tickets.push(
@@ -42,6 +43,33 @@ const fillMovieSelector = () => {
         movieSelector.appendChild(option);
     });
 };
+
+const addTicket = () => {
+    const movieSelector = document.getElementById("movieSelector");
+
+    const selectedMovie = movieSelector.options[movieSelector.selectedIndex].text;
+    const quantity = document.getElementById("quantityInput").value;
+    const firstName = document.getElementById("firstNameInput").value;
+    const lastName = document.getElementById("lastNameInput").value;
+    const phoneNumber = document.getElementById("phoneInput").value;
+    const email = document.getElementById("emailInput").value;
+
+    if (selectedMovie === "" || quantity === "" || firstName === "" || lastName === "" || phoneNumber === "" || email === "") {
+        return;
+    }
+
+    tickets.push({
+        movie: selectedMovie,
+        quantity: quantity,
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        email: email
+    });
+
+    localStorage.setItem("ticketsArray", JSON.stringify(tickets));
+};
+
 //Code mostly taken from Bootstrap's documentation on how to do form validation.
 ( () => {
     window.addEventListener('load',  () => {
@@ -59,3 +87,10 @@ const fillMovieSelector = () => {
         });
     }, false);
 })();
+
+const clearLocalStorage = () => {
+    localStorage.removeItem("ticketsArray");
+};
+
+
+
