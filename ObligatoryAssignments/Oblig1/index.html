@@ -2,13 +2,64 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-  <p>Hello world!</p>
+
+<div>
+    <h2>Ticket Ordering</h2>
+</div>
+<div>
+    <form>
+        <div>
+            <label for="movieSelector">Movie: </label>
+            <select id="movieSelector">
+                <option value="Movie">Movie</option>
+            </select>
+        </div>
+        <div>
+            <label for="quantityInput">Quantity</label>
+            <input type="number" id="quantityInput" value="1">
+        </div>
+        <div>
+            <label for="firstnameInput">Firstname</label>
+            <input type="text" id="firstnameInput" placeholder="Firstname">
+        </div>
+        <div>
+            <label for="lastnameInput">Lastname</label>
+            <input type="text" id="lastnameInput" placeholder="Lastname">
+        </div>
+        <div>
+            <label for="phoneInput">Phonenumber</label>
+            <input type="number" id="phoneInput" placeholder="12345678">
+        </div>
+        <div>
+            <label for="emailInput">Email</label>
+            <input type="email" id="emailInput" placeholder="e@mail.com">
+        </div>
+
+        <button type="submit">Buy Ticket</button>
+    </form>
+
+    <div>
+        <h2>All Tickets</h2>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Movie</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Mail</th>
+        </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
 </body>
 
 </html>
