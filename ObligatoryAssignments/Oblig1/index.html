@@ -3,52 +3,86 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Oblig 1 - Fredrik Pedersen</title>
 </head>
 
 <body>
 
-<div>
-    <h2>Ticket Ordering</h2>
-</div>
-<div>
-    <form>
-        <div>
-            <label for="movieSelector">Movie: </label>
-            <select id="movieSelector">
-                <option value="Movie">Movie</option>
-            </select>
-        </div>
-        <div>
-            <label for="quantityInput">Quantity</label>
-            <input type="number" id="quantityInput" value="1">
-        </div>
-        <div>
-            <label for="firstnameInput">Firstname</label>
-            <input type="text" id="firstnameInput" placeholder="Firstname">
-        </div>
-        <div>
-            <label for="lastnameInput">Lastname</label>
-            <input type="text" id="lastnameInput" placeholder="Lastname">
-        </div>
-        <div>
-            <label for="phoneInput">Phonenumber</label>
-            <input type="number" id="phoneInput" placeholder="12345678">
-        </div>
-        <div>
-            <label for="emailInput">Email</label>
-            <input type="email" id="emailInput" placeholder="e@mail.com">
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        Ticket Purchase
+    </a>
+</nav>
+
+<div id="content">
+    <form class>
+        <div class="form-group row">
+            <div class="col-md-1">
+                <label for="movieSelector">Movie</label>
+            </div>
+            <div class="col-md-1">
+                <select class="form-control" id="movieSelector">
+                    <option value="Movie">Movie</option>
+                </select>
+            </div>
         </div>
 
-        <button type="submit">Buy Ticket</button>
+        <div class="form-group row">
+            <div class="col-md-1">
+                <label for="quantityInput">Quantity</label>
+            </div>
+            <div class="col-md-1">
+                <input type="number" class="form-control" id="quantityInput" value="1">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-1">
+                <label for="firstnameInput">Firstname</label>
+            </div>
+            <div class="col-md-1">
+                <input type="text" class="form-control" id="firstnameInput" placeholder="Firstname">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-1">
+                <label for="lastnameInput">Lastname</label>
+            </div>
+            <div class="col-md-1">
+                <input type="text" class="form-control" id="lastnameInput" placeholder="Lastname">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-1">
+                <label for="phoneInput">Phonenumber</label>
+            </div>
+            <div class="col-md-1">
+                <input type="number" class="form-control" id="phoneInput" placeholder="12345678">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-1">
+                <label for="emailInput">Email</label>
+            </div>
+            <div class="col-md-1">
+                <input type="email" class="form-control" id="emailInput" placeholder="e@mail.com">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" id="buy-button">Buy Ticket</button>
     </form>
 
-    <div>
+    <div id="table-header">
         <h2>All Tickets</h2>
     </div>
-    <table>
-        <thead>
+    <table class="table table-striped">
+        <thead class="thead-dark">
         <tr>
             <th scope="col">Movie</th>
             <th scope="col">Quantity</th>
