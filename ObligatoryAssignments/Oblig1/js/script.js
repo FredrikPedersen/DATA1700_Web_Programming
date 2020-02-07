@@ -1,6 +1,5 @@
 let tickets = [];
 let createSampleData = localStorage.getItem("createDataBool") === null ? true : JSON.parse(localStorage.getItem("createDataBool"));
-console.log(createSampleData);
 const movies = ["Avengers: Secret Wars", "Black Widow", "1917", "Life on the Datatorg: A Documentary"];
 
 //Method to be called when the DOM is rendered.
@@ -33,7 +32,6 @@ const createSampleTickets = () => {
     } else {
         tickets = localStorage.getItem("ticketsArray") === null ? [] : JSON.parse(localStorage.getItem("ticketsArray"));
     }
-    console.log(tickets);
 };
 
 const fillMovieSelector = () => {
