@@ -1,4 +1,6 @@
 let tickets = [];
+let createSampleData = localStorage.getItem("createDataBool") === null ? true : JSON.parse(localStorage.getItem("createDataBool"));
+console.log(createSampleData);
 const movies = ["Avengers: Secret Wars", "Black Widow", "1917", "Life on the Datatorg: A Documentary"];
 
 //Method to be called when the DOM is rendered.
@@ -9,7 +11,7 @@ const init = () => {
 };
 
 const createSampleTickets = () => {
-    if (localStorage.getItem("ticketsArray") === null) {
+    if (localStorage.getItem("ticketsArray") === null && createSampleData === "true") {
         tickets.push(
             {
                 movie: "Avengers: Secret Wars",
@@ -29,7 +31,7 @@ const createSampleTickets = () => {
             }
         );
     } else {
-        tickets = JSON.parse(localStorage.getItem("ticketsArray"));
+        tickets = localStorage.getItem("ticketsArray") === null ? [] : JSON.parse(localStorage.getItem("ticketsArray"));
     }
     console.log(tickets);
 };
@@ -69,6 +71,9 @@ const addTicket = () => {
     });
 
     localStorage.setItem("ticketsArray", JSON.stringify(tickets));
+    localStorage.setItem("createDataBool", "true");
+};
+
 const listTickets = () => {
 
     const tableBody = document.getElementById('tableBody');
@@ -128,8 +133,14 @@ const sortList = (ticketA, ticketB) => {
     }, false);
 })();
 
-const clearLocalStorage = () => {
+const deleteTickets = () => {
     localStorage.removeItem("ticketsArray");
+    localStorage.setItem("createDataBool", "false");
+
+    const tableBody = document.getElementById('tableBody');
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
+    }
 };
 
 
