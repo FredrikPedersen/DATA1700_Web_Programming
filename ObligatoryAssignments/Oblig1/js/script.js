@@ -5,6 +5,7 @@ const movies = ["Avengers: Secret Wars", "Black Widow", "1917", "Life on the Dat
 const init = () => {
     createSampleTickets();
     fillMovieSelector();
+    listTickets();
 };
 
 const createSampleTickets = () => {
@@ -68,6 +69,45 @@ const addTicket = () => {
     });
 
     localStorage.setItem("ticketsArray", JSON.stringify(tickets));
+const listTickets = () => {
+
+    const tableBody = document.getElementById('tableBody');
+    tickets.sort((a, b) => sortList(a,b));
+
+    tickets.forEach(ticket => {
+        const tableRow = document.createElement("tr");
+
+        const tableColumnMovie = document.createElement("th");
+        tableColumnMovie.textContent = ticket.movie;
+
+        const tableColumnQuantity = document.createElement("th");
+        tableColumnQuantity.textContent = ticket.quantity;
+
+        const tableColumnName = document.createElement("th");
+        tableColumnName.textContent = ticket.firstName + " " + ticket.lastName;
+
+        const tableColumnPhone = document.createElement("th");
+        tableColumnPhone.textContent = ticket.phoneNumber;
+
+        const tableColumnMail = document.createElement("th");
+        tableColumnMail.textContent = ticket.email;
+
+        tableRow.appendChild(tableColumnMovie);
+        tableRow.appendChild(tableColumnQuantity);
+        tableRow.appendChild(tableColumnName);
+        tableRow.appendChild(tableColumnPhone);
+        tableRow.appendChild(tableColumnMail);
+        tableBody.appendChild(tableRow);
+    })
+};
+
+//Simple fort function, prioritizing firstName, then lastName.
+const sortList = (ticketA, ticketB) => {
+    if (ticketA.firstName === ticketB.firstName) {
+        return ticketA.lastName > ticketB.lastName ? 1 : -1;
+    } else {
+        return ticketA.firstName > ticketB.firstName ? 1 : -1;
+    }
 };
 
 //Code mostly taken from Bootstrap's documentation on how to do form validation.
