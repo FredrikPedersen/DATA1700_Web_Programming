@@ -1,11 +1,11 @@
 # Week 2
 
 Create a person registery program in JavaScript where some people are already added in an array when the program is first run.
-By clicking a button the people who are in the registery are to be printed in a table.
+By clicking a button the people who are in the registry are to be printed in a table.
 
 Extra tasks:
 
-1. Create functionality for adding more people to the registery.
+1. Create functionality for adding more people to the registry.
 2. Sort the array before printing to the web page.
 3. Make every second line be bold.
 4. Create a new column with national identity number.
