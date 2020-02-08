@@ -1,0 +1,1 @@
+# Obligatory Assignment 1 - Fredrik Pedersen s306631@oslomet.no
