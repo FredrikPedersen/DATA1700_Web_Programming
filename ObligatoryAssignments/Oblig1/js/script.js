@@ -1,4 +1,6 @@
 let tickets = [];
+
+//Boolean to keep track of whether the user has opted to delete all tickets. If they have, not sampleTickets should be generated.
 let createSampleData = localStorage.getItem("createDataBool") === null ? true : JSON.parse(localStorage.getItem("createDataBool"));
 const movies = ["Avengers: Secret Wars", "Black Widow", "1917", "Life on the Datatorg: A Documentary"];
 
@@ -9,8 +11,9 @@ const init = () => {
     listTickets();
 };
 
+//If there are no tickets in localStorage and the user haven't deleted all tickets, generate some sample tickets.
 const createSampleTickets = () => {
-    if (localStorage.getItem("ticketsArray") === null && createSampleData === "true") {
+    if (localStorage.getItem("ticketsArray") === null && createSampleData) {
         tickets.push(
             {
                 movie: "Avengers: Secret Wars",
@@ -34,6 +37,7 @@ const createSampleTickets = () => {
     }
 };
 
+//Dynamically fills the HTML Selector for movies with values from the movies array
 const fillMovieSelector = () => {
     const movieSelector = document.getElementById("movieSelector");
 
@@ -45,7 +49,10 @@ const fillMovieSelector = () => {
     });
 };
 
+
 const addTicket = () => {
+
+    //Fetch all values from the HTML form
     const movieSelector = document.getElementById("movieSelector");
 
     const selectedMovie = movieSelector.options[movieSelector.selectedIndex].text;
@@ -55,9 +62,8 @@ const addTicket = () => {
     const phoneNumber = document.getElementById("phoneInput").value;
     const email = document.getElementById("emailInput").value;
 
-    if (selectedMovie === "" || quantity === "" || firstName === "" || lastName === "" || phoneNumber === "" || email === "") {
-        return;
-    }
+    //Simple input-validation to make sure we have no empty fields.
+    if (selectedMovie === "" || quantity === "" || firstName === "" || lastName === "" || phoneNumber === "" || email === "") return;
 
     tickets.push({
         movie: selectedMovie,
@@ -72,6 +78,7 @@ const addTicket = () => {
     localStorage.setItem("createDataBool", "true");
 };
 
+//Dynamically creates table columns based on number of tickets and fills them with values.
 const listTickets = () => {
 
     const tableBody = document.getElementById('tableBody');
@@ -113,7 +120,8 @@ const sortList = (ticketA, ticketB) => {
     }
 };
 
-//Code mostly taken from Bootstrap's documentation on how to do form validation.
+//Code taken from Bootstrap's documentation on how to do form validation, with some modifications to remove redundancies.
+//See https://getbootstrap.com/docs/4.3/components/forms/#validation
 ( () => {
     window.addEventListener('load',  () => {
         const forms = document.getElementsByClassName('needs-validation');
@@ -131,6 +139,7 @@ const sortList = (ticketA, ticketB) => {
     }, false);
 })();
 
+//Removes the ticketArray from localStorage, disables generation of sample values and removes the HTML table columns.
 const deleteTickets = () => {
     localStorage.removeItem("ticketsArray");
     localStorage.setItem("createDataBool", "false");
@@ -141,5 +150,9 @@ const deleteTickets = () => {
     }
 };
 
-
-
+//Function used for resetting localStorage.
+//Reverts local storage to the state it was before you did anything, handy for testing.
+const clearLocalStorage = () => {
+    localStorage.removeItem("ticketsArray");
+    localStorage.removeItem("createDataBool");
+};
