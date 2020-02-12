@@ -1,7 +1,7 @@
 let tickets = [];
 
 //Boolean to keep track of whether the user has opted to delete all tickets. If they have, not sampleTickets should be generated.
-let createSampleData = localStorage.getItem("createDataBool") === null ? true : JSON.parse(localStorage.getItem("createDataBool"));
+let createSampleData = window.localStorage.getItem("createDataBool") === null ? true : JSON.parse(window.localStorage.getItem("createDataBool"));
 const movies = ["Avengers: Secret Wars", "Black Widow", "1917", "Life on the Datatorg: A Documentary"];
 
 //Method to be called when the DOM is rendered.
@@ -13,7 +13,7 @@ const init = () => {
 
 //If there are no tickets in localStorage and the user haven't deleted all tickets, generate some sample tickets.
 const createSampleTickets = () => {
-    if (localStorage.getItem("ticketsArray") === null && createSampleData) {
+    if (window.localStorage.getItem("ticketsArray") === null && createSampleData) {
         tickets.push(
             {
                 movie: "Avengers: Secret Wars",
@@ -33,7 +33,7 @@ const createSampleTickets = () => {
             }
         );
     } else {
-        tickets = localStorage.getItem("ticketsArray") === null ? [] : JSON.parse(localStorage.getItem("ticketsArray"));
+        tickets = window.localStorage.getItem("ticketsArray") === null ? [] : JSON.parse(window.localStorage.getItem("ticketsArray"));
     }
 };
 
@@ -74,13 +74,12 @@ const addTicket = () => {
         email: email
     });
 
-    localStorage.setItem("ticketsArray", JSON.stringify(tickets));
-    localStorage.setItem("createDataBool", "true");
+    window.localStorage.setItem("ticketsArray", JSON.stringify(tickets));
+    window.localStorage.setItem("createDataBool", "true");
 };
 
 //Dynamically creates table columns based on number of tickets and fills them with values.
 const listTickets = () => {
-
     const tableBody = document.getElementById('tableBody');
     tickets.sort((a, b) => sortList(a,b));
 
@@ -141,8 +140,9 @@ const sortList = (ticketA, ticketB) => {
 
 //Removes the ticketArray from localStorage, disables generation of sample values and removes the HTML table columns.
 const deleteTickets = () => {
-    localStorage.removeItem("ticketsArray");
-    localStorage.setItem("createDataBool", "false");
+    tickets = [];
+    window.localStorage.removeItem("ticketsArray");
+    window.localStorage.setItem("createDataBool", "false");
 
     const tableBody = document.getElementById('tableBody');
     while (tableBody.firstChild) {
@@ -153,6 +153,6 @@ const deleteTickets = () => {
 //Function used for resetting localStorage.
 //Reverts local storage to the state it was before you did anything, handy for testing.
 const clearLocalStorage = () => {
-    localStorage.removeItem("ticketsArray");
-    localStorage.removeItem("createDataBool");
+    window.localStorage.removeItem("ticketsArray");
+    window.localStorage.removeItem("createDataBool");
 };
