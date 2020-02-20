@@ -39,7 +39,7 @@ const createSampleTickets = () => {
 
 //Dynamically fills the HTML Selector for movies with values from the movies array
 const fillMovieSelector = () => {
-    const movieSelector = document.getElementById("movieSelector");
+    const movieSelector = $("#movieSelector")[0];
 
     movies.forEach(movie => {
         const option = document.createElement("option");
@@ -53,14 +53,14 @@ const fillMovieSelector = () => {
 const addTicket = () => {
 
     //Fetch all values from the HTML form
-    const movieSelector = document.getElementById("movieSelector");
+    const movieSelector = $("#movieSelector")[0];
 
     const selectedMovie = movieSelector.options[movieSelector.selectedIndex].text;
-    const quantity = document.getElementById("quantityInput").value;
-    const firstName = document.getElementById("firstNameInput").value;
-    const lastName = document.getElementById("lastNameInput").value;
-    const phoneNumber = document.getElementById("phoneInput").value;
-    const email = document.getElementById("emailInput").value;
+    const quantity = $("#quantityInput").val();
+    const firstName = $("#firstNameInput").val();
+    const lastName = $("#lastNameInput").val();
+    const phoneNumber = $("#phoneInput").val();
+    const email = $("#emailInput").val();
 
     //Simple input-validation to make sure we have no empty fields.
     if (selectedMovie === "" || quantity === "" || firstName === "" || lastName === "" || phoneNumber === "" || email === "") return;
@@ -80,7 +80,7 @@ const addTicket = () => {
 
 //Dynamically creates table columns based on number of tickets and fills them with values.
 const listTickets = () => {
-    const tableBody = document.getElementById('tableBody');
+    const tableBody = $('#tableBody')[0];
     tickets.sort((a, b) => sortList(a,b));
 
     tickets.forEach(ticket => {
@@ -125,7 +125,7 @@ const sortList = (ticketA, ticketB) => {
     window.addEventListener('load',  () => {
         const forms = document.getElementsByClassName('needs-validation');
 
-        const validation = Array.prototype.filter.call(forms,  form => {
+        Array.prototype.filter.call(forms,  form => {
             form.addEventListener('submit',  event => {
                 if (form.checkValidity() === false) {
                     event.preventDefault();
@@ -144,7 +144,7 @@ const deleteTickets = () => {
     window.localStorage.removeItem("ticketsArray");
     window.localStorage.setItem("createDataBool", "false");
 
-    const tableBody = document.getElementById('tableBody');
+    const tableBody = $('#tableBody')[0];
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
     }
