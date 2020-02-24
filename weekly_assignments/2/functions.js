@@ -64,19 +64,19 @@ const printPersons = () => {
 
         const tableRow = document.createElement('tr');
 
-        const tableColumnName = document.createElement('th');
+        const tableColumnName = document.createElement('td');
         tableColumnName.style.cssText = liStyle;
         tableColumnName.textContent = persons[i].name;
 
-        const tableColumnAddress = document.createElement('th');
+        const tableColumnAddress = document.createElement('td');
         tableColumnAddress.style.cssText = liStyle;
         tableColumnAddress.textContent = persons[i].address;
 
-        const tableColumnPhone = document.createElement('th');
+        const tableColumnPhone = document.createElement('td');
         tableColumnPhone.style.cssText = liStyle;
         tableColumnPhone.textContent = persons[i].phone;
 
-        const tableColumnNIN = document.createElement('th');
+        const tableColumnNIN = document.createElement('td');
         tableColumnNIN.style.cssText = liStyle;
         tableColumnNIN.textContent = persons[i].nin;
 
