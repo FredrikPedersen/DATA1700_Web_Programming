@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(TicketController.BASE_URL)
+@CrossOrigin
 public class TicketController {
 
     public static final String BASE_URL = "/api/v1/tickets/";
@@ -36,9 +37,9 @@ public class TicketController {
         return ticketService.createNew(ticketDTO);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTicketById(@PathVariable final Long id) {
-        ticketService.deleteById(id);
+    public void deleteAllTickets() {
+        ticketService.deleteAll();
     }
 }

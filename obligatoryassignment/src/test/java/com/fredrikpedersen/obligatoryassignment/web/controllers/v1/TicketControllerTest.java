@@ -96,12 +96,12 @@ class TicketControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void deleteByIdTest() throws Exception {
+    void deleteAllTest() throws Exception {
         mockMvc.perform(delete(URL + ID)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        verify(ticketService).deleteById(anyLong());
+        verify(ticketService).deleteAll();
     }
 
 }

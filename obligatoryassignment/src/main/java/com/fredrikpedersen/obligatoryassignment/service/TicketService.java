@@ -9,5 +9,5 @@ import com.fredrikpedersen.obligatoryassignment.web.models.v1.TicketDTO;
  * @since 12/03/2020 at 20:20
  */
 
-public interface TicketService extends CrudService<TicketDTO, Ticket, Long> {
+public interface TicketService extends CrudService<TicketDTO, Ticket> {
 }

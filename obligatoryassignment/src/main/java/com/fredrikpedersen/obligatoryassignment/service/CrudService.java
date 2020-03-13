@@ -11,14 +11,13 @@ import java.util.List;
  * @since 12/03/2020 at 20:03
  * @param <T> The type of DTO model the service is being implemented for
  * @param <S> The type of Domain model the service is being implemented for
- * @param <ID> The type of ID the models have
  */
 
-public interface CrudService<T extends DTO, S extends DomainEntity, ID> {
+public interface CrudService<T extends DTO, S extends DomainEntity> {
 
     List<T> findAll();
     T createNew(final T dtoObject);
-    void deleteById(final ID id);
+    void deleteAll();
 
     //This is a helper method. Consider creating an abstract class which implements this interface, which overrides this method, as to not make it public.
     T saveAndReturnDTO(final S domainObject);

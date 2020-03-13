@@ -78,8 +78,8 @@ class TicketServiceImplTest {
     }
 
     @Test
-    void deleteById() {
-        ticketRepository.deleteById(ID);
-        verify(ticketRepository, times(1)).deleteById(anyLong());
+    void deleteAll() {
+        ticketRepository.deleteAll();
+        verify(ticketRepository, times(1)).deleteAll();
     }
 }
