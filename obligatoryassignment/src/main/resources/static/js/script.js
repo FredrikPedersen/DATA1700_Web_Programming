@@ -5,7 +5,7 @@ const apiUrl = "http://localhost:8080/api/v1/tickets/";
  * Adds an event listener to the window when the DOM is finished rendering.
  * Calls the init method to initialize the view, then adds an event listener on the ticketForm
  * to override it's default submit behaviour to do input validation and then do a POST request
- * to our API if input was validated.
+ * to our API if the input was validated.
  */
 window.addEventListener("load", () => {
     init();
@@ -15,18 +15,18 @@ window.addEventListener("load", () => {
         event.preventDefault();
         form.classList.remove('was-validated');
 
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
-            form.classList.add('was-validated');
-        } else {
+        if (form.checkValidity()) {
             addTicket();
             form.reset();
+        } else {
+            event.stopPropagation();
+            form.classList.add('was-validated');
         }
     }, false);
 
 }, false);
 
-//Method to be called when the DOM is rendered.
+//Convenience function to be called when the DOM is rendered.
 const init = () => {
     fillMovieSelector();
     listTickets();
@@ -55,9 +55,6 @@ const addTicket = () => {
     const phoneNumber = $("#phoneInput").val();
     const email = $("#emailInput").val();
 
-    //Simple input-validation to make sure we have no empty fields.
-    if (selectedMovie === "" || quantity === "" || firstName === "" || lastName === "" || phoneNumber === "" || email === "") return;
-
     const ticketDTO = {
         movie: selectedMovie,
         quantity: quantity,
@@ -77,6 +74,7 @@ const addTicket = () => {
 
 //Dynamically creates table columns based on number of tickets and fills them with values.
 const listTickets = async () => {
+
     clearTicketTable();
     const tableBody = $('#tableBody')[0];
     const tickets = await getTickets();
