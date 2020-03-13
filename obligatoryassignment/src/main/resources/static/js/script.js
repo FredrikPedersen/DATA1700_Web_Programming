@@ -13,13 +13,15 @@ window.addEventListener("load", () => {
 
     form.addEventListener('submit', event => {
         event.preventDefault();
+        form.classList.remove('was-validated');
 
         if (form.checkValidity() === false) {
             event.stopPropagation();
+            form.classList.add('was-validated');
+        } else {
+            addTicket();
+            form.reset();
         }
-
-        form.classList.add('was-validated');
-        addTicket();
     }, false);
 
 }, false);
@@ -68,12 +70,14 @@ const addTicket = () => {
     axios.post(apiUrl, ticketDTO)
         .then(response => {
             console.log(response);
+            listTickets();
         })
         .catch(error => console.log(error));
 };
 
 //Dynamically creates table columns based on number of tickets and fills them with values.
 const listTickets = async () => {
+    clearTicketTable();
     const tableBody = $('#tableBody')[0];
     const tickets = await getTickets();
 
@@ -141,7 +145,10 @@ const deleteTickets = () => {
 
 const performDeletion = () => {
     axios.delete(apiUrl);
+    clearTicketTable();
+};
 
+const clearTicketTable = () => {
     const tableBody = $('#tableBody')[0];
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
