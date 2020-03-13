@@ -1,6 +1,7 @@
 ## Obligatory Assignments - Fredrik Pedersen s306631@oslomet.no
 
 This is the project for obligatory assignments. Duh.
+To run the application, run the class ObligatoryassignmentApplication class and then go to http://localhost:63342/obligatoryassignment/static/html/index.html 
 
 ### Server Application
 
