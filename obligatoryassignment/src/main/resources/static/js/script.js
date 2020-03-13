@@ -1,40 +1,33 @@
-let tickets = [];
-
-//Boolean to keep track of whether the user has opted to delete all tickets. If they have, not sampleTickets should be generated.
-let createSampleData = window.localStorage.getItem("createDataBool") === null ? true : JSON.parse(window.localStorage.getItem("createDataBool"));
 const movies = ["Avengers: Secret Wars", "Black Widow", "1917", "Life on the Datatorg: A Documentary"];
+const apiUrl = "http://localhost:8080/api/v1/tickets/";
+
+/**
+ * Adds an event listener to the window when the DOM is finished rendering.
+ * Calls the init method to initialize the view, then adds an event listener on the ticketForm
+ * to override it's default submit behaviour to do input validation and then do a POST request
+ * to our API if input was validated.
+ */
+window.addEventListener("load", () => {
+    init();
+    const form = $("#ticketForm")[0];
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
+        addTicket();
+    }, false);
+
+}, false);
 
 //Method to be called when the DOM is rendered.
 const init = () => {
-    createSampleTickets();
     fillMovieSelector();
     listTickets();
-};
-
-//If there are no tickets in localStorage and the user haven't deleted all tickets, generate some sample tickets.
-const createSampleTickets = () => {
-    if (window.localStorage.getItem("ticketsArray") === null && createSampleData) {
-        tickets.push(
-            {
-                movie: "Avengers: Secret Wars",
-                quantity: 5,
-                firstName: "Fredrik",
-                lastName: "Pedersen",
-                phoneNumber: 87654321,
-                email: "fredrik@mail.com"
-            },
-            {
-                movie: "Black Widow",
-                quantity: 2,
-                firstName: "Signe",
-                lastName: "Eide",
-                phoneNumber: 12345678,
-                email: "signe@mail.com"
-            }
-        );
-    } else {
-        tickets = window.localStorage.getItem("ticketsArray") === null ? [] : JSON.parse(window.localStorage.getItem("ticketsArray"));
-    }
 };
 
 //Dynamically fills the HTML Selector for movies with values from the movies array
@@ -49,12 +42,10 @@ const fillMovieSelector = () => {
     });
 };
 
-
 const addTicket = () => {
 
     //Fetch all values from the HTML form
     const movieSelector = $("#movieSelector")[0];
-
     const selectedMovie = movieSelector.options[movieSelector.selectedIndex].text;
     const quantity = $("#quantityInput").val();
     const firstName = $("#firstNameInput").val();
@@ -65,23 +56,28 @@ const addTicket = () => {
     //Simple input-validation to make sure we have no empty fields.
     if (selectedMovie === "" || quantity === "" || firstName === "" || lastName === "" || phoneNumber === "" || email === "") return;
 
-    tickets.push({
+    const ticketDTO = {
         movie: selectedMovie,
         quantity: quantity,
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
         email: email
-    });
+    };
 
-    window.localStorage.setItem("ticketsArray", JSON.stringify(tickets));
-    window.localStorage.setItem("createDataBool", "true");
+    axios.post(apiUrl, ticketDTO)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => console.log(error));
 };
 
 //Dynamically creates table columns based on number of tickets and fills them with values.
-const listTickets = () => {
+const listTickets = async () => {
     const tableBody = $('#tableBody')[0];
-    tickets.sort((a, b) => sortList(a,b));
+    const tickets = await getTickets();
+
+    tickets.sort((a, b) => sortList(a, b));
 
     tickets.forEach(ticket => {
         const tableRow = document.createElement("tr");
@@ -110,6 +106,11 @@ const listTickets = () => {
     })
 };
 
+const getTickets = async () => {
+    const response = await axios.get(apiUrl);
+    return response.data.tickets;
+};
+
 //Simple fort function, prioritizing firstName, then lastName.
 const sortList = (ticketA, ticketB) => {
     if (ticketA.firstName === ticketB.firstName) {
@@ -119,40 +120,30 @@ const sortList = (ticketA, ticketB) => {
     }
 };
 
-//Code taken from Bootstrap's documentation on how to do form validation, with some modifications to remove redundancies.
-//See https://getbootstrap.com/docs/4.3/components/forms/#validation
-( () => {
-    window.addEventListener('load',  () => {
-        const forms = document.getElementsByClassName('needs-validation');
 
-        Array.prototype.filter.call(forms,  form => {
-            form.addEventListener('submit',  event => {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-
-//Removes the ticketArray from localStorage, disables generation of sample values and removes the HTML table columns.
 const deleteTickets = () => {
-    tickets = [];
-    window.localStorage.removeItem("ticketsArray");
-    window.localStorage.setItem("createDataBool", "false");
+
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, all tickets will be lost forever!",
+        icon: "warning",
+        buttons: true
+    })
+        .then((confirmation) => {
+            if (confirmation) {
+                performDeletion();
+                swal("Tickets deleted!", {
+                    icon: "success"
+                })
+            }
+        });
+};
+
+const performDeletion = () => {
+    axios.delete(apiUrl);
 
     const tableBody = $('#tableBody')[0];
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
     }
-};
-
-//Function used for resetting localStorage.
-//Reverts local storage to the state it was before you did anything, handy for testing.
-const clearLocalStorage = () => {
-    window.localStorage.removeItem("ticketsArray");
-    window.localStorage.removeItem("createDataBool");
 };
