@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title></head>
+<body>
+<table>
+    <tr>
+        <td>Brukernavn</td>
+        <td><input type="text" id="brukernavn"/></td>
+    </tr>
+    <tr>
+        <td>Passord</td>
+        <td><input type="text" id="passord"/></td>
+    </tr>
+    <tr>
+        <td>
+            <button id="logginn" onclick="logginn()">Logg inn</button>
+            <button id="registrer" onclick="registrer()">Registrer</button>
+            <button id="print" onclick="hentAlleBrukernavn()">Print Brukere</button>
+        </td>
+    </tr>
+</table>
+<div id="melding"></div>
+<div id="brukere" class="table-responsive" ></div>
+<script src="index.js"></script>
+</body>
+</html>
